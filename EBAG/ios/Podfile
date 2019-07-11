@@ -1,0 +1,41 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'EBAG' do
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+  'Core',
+  'CxxBridge', # Include this for RN >= 0.47
+  'DevSupport',
+  'RCTNetwork',
+  'RCTText',
+  'RCTImage',
+  'RCTPushNotification',
+  'RCTWebSocket',
+  'RCTAnimation',
+  'RCTLinkingIOS',
+  ]
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  pod 'JPushRN', :path => '../node_modules/jpush-react-native'
+  pod 'JCoreRN', :path => '../node_modules/jcore-react-native'
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+  end
+  copy_pods_resources_path = "Pods/Target Support Files/Pods-EBAG/Pods-EBAG-resources.sh"
+  string_to_replace = '--compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"'
+  assets_compile_with_app_icon_arguments = '--compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}" --app-icon "${ASSETCATALOG_COMPILER_APPICON_NAME}" --output-partial-info-plist "${BUILD_DIR}/assetcatalog_generated_info.plist"'
+  text = File.read(copy_pods_resources_path)
+  new_contents = text.gsub(string_to_replace, assets_compile_with_app_icon_arguments)
+  File.open(copy_pods_resources_path, "w") {|file| file.puts new_contents }
+end
