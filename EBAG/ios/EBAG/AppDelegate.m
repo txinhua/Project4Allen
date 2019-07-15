@@ -63,8 +63,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [JPUSHService setupWithOption:launchOptions appKey:@"987490d7bf96cb6adfd5f321"
-                        channel:nil apsForProduction:nil];
+#ifdef DEBUG
+    [JPUSHService setupWithOption:launchOptions appKey:@"d27890437ccf4e4ee3150e10"
+                          channel:nil apsForProduction:NO];
+#else
+    [JPUSHService setupWithOption:launchOptions appKey:@"d27890437ccf4e4ee3150e10"
+                          channel:nil apsForProduction:YES];
+#endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
