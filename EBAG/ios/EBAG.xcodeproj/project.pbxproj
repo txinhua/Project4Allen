@@ -380,6 +380,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B615B7DAD58F415495ED1A2D /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		CA3861289F2D4A28A38F49DF /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		CE777639A6793C6AA6C4555E /* Pods-EBAG.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EBAG.staging.xcconfig"; path = "Pods/Target Support Files/Pods-EBAG/Pods-EBAG.staging.xcconfig"; sourceTree = "<group>"; };
 		E320EA5789ED218AABC714B2 /* Pods-EBAG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EBAG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EBAG/Pods-EBAG.debug.xcconfig"; sourceTree = "<group>"; };
 		E3EDAE152492473B9BF2715C /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		E4A37EAE98934CABBC1C006B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -580,6 +581,7 @@
 			children = (
 				E320EA5789ED218AABC714B2 /* Pods-EBAG.debug.xcconfig */,
 				9D645142D62EE869EC09B613 /* Pods-EBAG.release.xcconfig */,
+				CE777639A6793C6AA6C4555E /* Pods-EBAG.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -721,6 +723,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				B57190E95AD92F4780069A80 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -782,6 +785,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = ZB6S7V5DXY;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1232,6 +1236,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B57190E95AD92F4780069A80 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EBAG/Pods-EBAG-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/QBImagePickerController/QBImagePicker.bundle",
+				"${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EBAG/Pods-EBAG-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1343,6 +1367,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = EBAG/EBAG.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ZB6S7V5DXY;
@@ -1353,8 +1378,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyrone.rabbitstudy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huazhu.ebagtest;
 				PRODUCT_NAME = EBAG;
+				PROVISIONING_PROFILE_SPECIFIER = huazhu_ebagtest1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1366,6 +1392,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = EBAG/EBAG.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZB6S7V5DXY;
 				INFOPLIST_FILE = EBAG/Info.plist;
@@ -1375,8 +1402,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyrone.rabbitstudy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huazhu.ebagtest;
 				PRODUCT_NAME = EBAG;
+				PROVISIONING_PROFILE_SPECIFIER = huazhu_ebagtest1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1630,11 +1658,12 @@
 		};
 		B1C0068522E4622300FF3E03 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D645142D62EE869EC09B613 /* Pods-EBAG.release.xcconfig */;
+			baseConfigurationReference = CE777639A6793C6AA6C4555E /* Pods-EBAG.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = EBAG/EBAG.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZB6S7V5DXY;
@@ -1645,8 +1674,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tyrone.rabbitstudy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huazhu.ebagtest;
 				PRODUCT_NAME = EBAG;
+				PROVISIONING_PROFILE_SPECIFIER = huazhu_ebagtest1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Staging;

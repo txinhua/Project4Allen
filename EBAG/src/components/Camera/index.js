@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 
 export default class Camera extends Component {
   state = {
@@ -23,61 +23,29 @@ export default class Camera extends Component {
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
     this.selectVideoTapped = this.selectVideoTapped.bind(this);
   }
-
+  
   selectPhotoTapped() {
     const options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
-      storageOptions: {
-        skipBackup: true,
-      },
+      width: 300,
+      height: 400,
+      cropping: true
     };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        let source = { uri: response.uri };
-
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        this.setState({
-          avatarSource: source,
-        });
-      }
+    ImageCropPicker.openPicker(options).then(image => {
+      onsole.log(JSON.stringify(image))
+      this.setState({
+        videoSource: video.uri,
+      });
     });
   }
 
   selectVideoTapped() {
-    const options = {
-      title: 'Video Picker',
-      takePhotoButtonTitle: 'Take Video...',
-      mediaType: 'video',
-      videoQuality: 'medium',
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled video picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        this.setState({
-          videoSource: response.uri,
-        });
-      }
+    ImageCropPicker.openPicker({
+      mediaType: "video",
+    }).then((video) => {
+      console.log(JSON.stringify(video))
+      this.setState({
+        videoSource: video.uri,
+      });
     });
   }
 

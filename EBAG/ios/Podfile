@@ -23,11 +23,11 @@ target 'EBAG' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'JPushRN', :path => '../node_modules/jpush-react-native'
   pod 'JCoreRN', :path => '../node_modules/jcore-react-native'
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
-
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
 end
 
