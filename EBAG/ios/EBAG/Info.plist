@@ -39,8 +39,16 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>EBAG想要使用你的相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>EBAG申请使用麦克风</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>EBAG想要访问你的相册</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>EBAG想要访问你的相册</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

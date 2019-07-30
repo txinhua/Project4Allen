@@ -248,7 +248,7 @@
 
 #pragma mark - Initialization
 - (instancetype)init {
-    return (typeof(self))[super init].stringCoder([JWTBase64Coder withBase64String]);
+    return [super init].stringCoder([JWTBase64Coder withBase64String]);
 }
 
 + (instancetype)createWithAlgorithm256 {

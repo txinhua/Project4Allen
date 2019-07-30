@@ -16,7 +16,7 @@ PODS:
     - React
   - JPushRN (2.5.3):
     - React
-  - JWT (3.0.0-beta.11):
+  - JWT (3.0.0-beta.9):
     - Base64 (~> 1.1.2)
   - QBImagePickerController (3.4.0)
   - React (0.59.9):
@@ -29,10 +29,12 @@ PODS:
     - React
   - react-native-camera/RN (2.11.1):
     - React
-  - react-native-video (4.4.3):
+  - react-native-video (4.4.4):
     - React
-    - react-native-video/Video (= 4.4.3)
-  - react-native-video/Video (4.4.3):
+    - react-native-video/Video (= 4.4.4)
+  - react-native-video/Video (4.4.4):
+    - React
+  - react-native-webview (5.12.1):
     - React
   - React/Core (0.59.9):
     - yoga (= 0.59.9.React)
@@ -62,9 +64,13 @@ PODS:
     - React/cxxreact
     - React/jsi
   - React/jsinspector (0.59.9)
+  - React/RCTActionSheet (0.59.9):
+    - React/Core
   - React/RCTAnimation (0.59.9):
     - React/Core
   - React/RCTBlob (0.59.9):
+    - React/Core
+  - React/RCTGeolocation (0.59.9):
     - React/Core
   - React/RCTImage (0.59.9):
     - React/Core
@@ -75,7 +81,11 @@ PODS:
     - React/Core
   - React/RCTPushNotification (0.59.9):
     - React/Core
+  - React/RCTSettings (0.59.9):
+    - React/Core
   - React/RCTText (0.59.9):
+    - React/Core
+  - React/RCTVibration (0.59.9):
     - React/Core
   - React/RCTWebSocket (0.59.9):
     - React/Core
@@ -85,9 +95,11 @@ PODS:
     - React
   - RNImageCropPicker (0.25.0):
     - QBImagePickerController
+    - React/Core
+    - React/RCTImage
     - RSKImageCropper
-  - RSKImageCropper (2.2.3)
-  - SSZipArchive (2.2.2)
+  - RSKImageCropper (2.1.0)
+  - SSZipArchive (2.1.3)
   - yoga (0.59.9.React)
 
 DEPENDENCIES:
@@ -99,19 +111,24 @@ DEPENDENCIES:
   - JPushRN (from `../node_modules/jpush-react-native`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-video (from `../node_modules/react-native-video`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTLinkingIOS (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTPushNotification (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
-  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -141,33 +158,36 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-video:
     :path: "../node_modules/react-native-video"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
   yoga:
-    :path: "../node_modules/react-native/ReactCommon/yoga"
+    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  CodePush: b56e29c56dba8121898f601ca48a9a48b2ff5efb
+  CodePush: f6b348759cdc42c734d9c3a46ceb2997c270b12e
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
-  JCoreRN: 4b0ad270209c0e1ab2ec92b33f19774ee15f3c25
-  JPushRN: 24d74b712a1cc214be8e62dc356b7c331180472d
-  JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
+  JCoreRN: 5dff1e0264ee9fd57a0bc9b8cb2411b3c553e241
+  JPushRN: bdaefc1f0442d90ef4035f47e29e4268ee6a11f2
+  JWT: 8ace44791ddd338cfeff39d03b8397af53f5d63e
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
-  React: a86b92f00edbe1873a63e4a212c29b7a7ad5224f
-  react-native-camera: 96a3c81f27da57b816fbb6808dde20dc96d1431e
-  react-native-video: bd7ca482cd4f3dac31c9bc93a6fe8573db433319
-  RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
-  RNImageCropPicker: 2445c46f3e6aa5e87ae5057834153b96dcd1c359
-  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
-  SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
-  yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
+  React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
+  react-native-camera: 9c50d7def800895e7991ccda6203929553ceec9c
+  react-native-video: 44c6befbc1526283ca1919891fcebe4680feade4
+  react-native-webview: ad9581723f4d401c22cb3a371811d4dc9310df56
+  RNGestureHandler: 7ccf2f3f60458e084f9ada01fbaf610f6fef073c
+  RNImageCropPicker: 39b6c44d76036e42eeeb84eaed93518823aa116e
+  RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
+  SSZipArchive: 51a800ebb77f95a8329b6ced1faaff394b47f509
+  yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: d9298d48aa4672d623557cf63ac8e8d4d340a693
+PODFILE CHECKSUM: 04a6f288d94057e372d3d549fb993c350aedd278
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.5.3

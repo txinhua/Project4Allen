@@ -8,21 +8,19 @@
 
 #import "JWTBase64Coder.h"
 
-#ifndef HAS_INCLUDE_MF_Base64Additions_AS_FRAMEWORK
-#define HAS_INCLUDE_MF_Base64Additions_AS_FRAMEWORK (__has_include(<Base64/MF_Base64Additions.h>))
-#endif
+@interface JWTBase64Coder (ConditionLinking)
++ (BOOL)isBase64AddtionsAvailable;
+@end
 
-#ifndef HAS_INCLUDE_MF_Base64Additions_AS_PLAIN_LIBRARY
-#define HAS_INCLUDE_MF_Base64Additions_AS_PLAIN_LIBRARY (__has_include("MF_Base64Additions.h"))
-#endif
+@implementation JWTBase64Coder (ConditionLinking)
++ (BOOL)isBase64AddtionsAvailable {
+    return [[NSData class] respondsToSelector:@selector(dataWithBase64UrlEncodedString:)];
+}
+@end
 
-#ifndef HAS_INCLUDE_MF_Base64Additions
-#define HAS_INCLUDE_MF_Base64Additions (HAS_INCLUDE_MF_Base64Additions_AS_FRAMEWORK || HAS_INCLUDE_MF_Base64Additions_AS_PLAIN_LIBRARY)
-#endif
-
-#if HAS_INCLUDE_MF_Base64Additions_AS_FRAMEWORK
+#if __has_include(<Base64/MF_Base64Additions.h>)
 #import <Base64/MF_Base64Additions.h>
-#elif HAS_INCLUDE_MF_Base64Additions_AS_PLAIN_LIBRARY
+#elif __has_include("MF_Base64Additions.h")
 #import "MF_Base64Additions.h"
 #endif
 
@@ -43,29 +41,21 @@
     return coder;
 }
 + (NSString *)base64UrlEncodedStringWithData:(NSData *)data {
-#if HAS_INCLUDE_MF_Base64Additions
-    if ([data respondsToSelector:@selector(base64UrlEncodedString)]) {
+    if ([self isBase64AddtionsAvailable] && [data respondsToSelector:@selector(base64UrlEncodedString)]) {
         return [data performSelector:@selector(base64UrlEncodedString)];
     }
     else {
-#endif
         return [data base64EncodedStringWithOptions:0];
-#if HAS_INCLUDE_MF_Base64Additions
     }
-#endif
 }
 
 + (NSData *)dataWithBase64UrlEncodedString:(NSString *)urlEncodedString {
-#if HAS_INCLUDE_MF_Base64Additions
-    if ([[NSData class] respondsToSelector:@selector(dataWithBase64UrlEncodedString:)]) {
+    if ([self isBase64AddtionsAvailable] && [[NSData class] respondsToSelector:@selector(dataWithBase64UrlEncodedString:)]) {
         return [[NSData class] performSelector:@selector(dataWithBase64UrlEncodedString:) withObject:urlEncodedString];
     }
     else {
-#endif
         return [[NSData alloc] initWithBase64EncodedString:urlEncodedString options:0];
-#if HAS_INCLUDE_MF_Base64Additions
     }
-#endif
 }
 
 //+ (NSData *)dataWithString:(NSString *)string {

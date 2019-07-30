@@ -2,8 +2,11 @@
 platform :ios, '9.0'
 
 target 'EBAG' do
+  rn_path = '../node_modules/react-native'
+  pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
   'Core',
+  'RCTActionSheet',
   'CxxBridge', # Include this for RN >= 0.47
   'DevSupport',
   'RCTNetwork',
@@ -12,10 +15,12 @@ target 'EBAG' do
   'RCTPushNotification',
   'RCTWebSocket',
   'RCTAnimation',
+  'RCTGeolocation',
   'RCTLinkingIOS',
+  'RCTSettings',
+  'RCTVibration'
   ]
-  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-  
+
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
@@ -29,10 +34,15 @@ target 'EBAG' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
   end
   copy_pods_resources_path = "Pods/Target Support Files/Pods-EBAG/Pods-EBAG-resources.sh"
   string_to_replace = '--compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"'

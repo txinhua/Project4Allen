@@ -8,8 +8,6 @@
 
 #import "JWTCryptoKey.h"
 #import "JWTCryptoSecurity.h"
-#import "JWTCryptoSecurity+Extraction.h"
-#import "JWTCryptoSecurity+ExternalRepresentation.h"
 #import "JWTBase64Coder.h"
 @interface JWTCryptoKeyBuilder()
 + (NSString *)keyTypeRSA;
@@ -72,10 +70,11 @@
 // Parameters are nil at that moment, could be used later for some purposes
 - (NSString *)extractedSecKeyTypeWithParameters:(NSDictionary *)parameters {
     JWTCryptoKeyBuilder *builder = [self extractedBuilderWithParameters:parameters];
+    NSString *result = nil;
     if (builder.withKeyTypeEC) {
-        return JWTCryptoSecurityKeysTypes.EC;
+        result = [JWTCryptoSecurity keyTypeEC];
     }
-    return JWTCryptoSecurityKeysTypes.RSA;
+    return result ?: [JWTCryptoSecurity keyTypeRSA];
 }
 @end
 @interface JWTCryptoKey (Generator) <JWTCryptoKey__Generator__Protocol, JWTCryptoKey__Raw__Generator__Protocol>
@@ -102,7 +101,7 @@
 - (instancetype)initWithPemEncoded:(NSString *)encoded parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing*)error {
     //TODO: check correctness.
     //maybe use clean initWithBase64String and remove ?: encoded tail.
-    NSString *clean = ((JWTCryptoSecurityComponent *)[[JWTCryptoSecurity componentsFromFileContent:encoded] componentsOfType:JWTCryptoSecurityComponents.Key].firstObject).content ?: encoded;//[JWTCryptoSecurity stringByRemovingPemHeadersFromString:encoded];
+    NSString *clean = [JWTCryptoSecurity keyFromPemFileContent:encoded] ?: encoded;//[JWTCryptoSecurity stringByRemovingPemHeadersFromString:encoded];
     return [self initWithBase64String:clean parameters:parameters error:error];
 }
 - (instancetype)initWithPemAtURL:(NSURL *)url parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing*)error {
@@ -130,14 +129,6 @@
         *error = [NSError errorWithDomain:@"org.opensource.jwt.security.key" code:-200 userInfo:@{NSLocalizedDescriptionKey : @"Security key not retrieved! something went wrong!"}];
     }
     return self;
-}
-@end
-
-@implementation JWTCryptoKey (ExternalRepresentation)
-- (NSString *)externalRepresentationForCoder:(JWTBase64Coder *)coder error:(NSError *__autoreleasing *)error {
-    NSData *data = [JWTCryptoSecurity externalRepresentationForKey:self.key error:error];
-    NSString *result = (NSString *)[coder ?: JWTBase64Coder.withBase64String stringWithData:data];
-    return result;
 }
 @end
 
@@ -174,7 +165,7 @@
         
         if (builder.withKeyTypeEC) {
             NSError *theError = nil;
-            //  keyData = [JWTCryptoSecurity dataByExtractingKeyFromANS1:data error:&theError];
+            keyData = [JWTCryptoSecurity dataByExtractingKeyFromANS1:data error:&theError];
             if (!keyData || theError) {
                 if (error && theError != nil) {
                     *error = theError;
@@ -237,7 +228,7 @@
 - (instancetype)initWithCertificateBase64String:(NSString *)certificate parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing*)error {
     // cleanup certificate if needed.
     // call initWithCertificateData:(NSData *)certificateData
-    NSData *certificateData = [JWTBase64Coder dataWithBase64UrlEncodedString:certificate];
+    NSData *certificateData = nil;
     return [self initWithCertificateData:certificateData parameters:parameters error:error];
 }
 @end
@@ -303,45 +294,31 @@
     // cleanup if needed.
     SecIdentityRef identity = nil;
     SecTrustRef trust = nil;
-    {
-        CFErrorRef extractError = NULL;
-        [JWTCryptoSecurity extractIdentityAndTrustFromPKCS12:(__bridge CFDataRef)p12Data password:(__bridge CFStringRef)passphrase identity:&identity trust:&trust error:&extractError];
-        if (extractError != nil) {
-            if (error) {
-                *error = (NSError *)CFBridgingRelease(extractError);
-                return nil;
-            }
-        }
-    }
-    
+    [JWTCryptoSecurity extractIdentityAndTrustFromPKCS12:(__bridge CFDataRef)p12Data password:(__bridge CFStringRef)passphrase identity:&identity trust:&trust];
     BOOL identityAndTrust = identity && trust;
-    
-    // we don't need trust anymore.
-    if (trust) {
-        CFRelease(trust);
-    }
-    
-    SecKeyRef privateKey = NULL;
+
     if (identityAndTrust) {
-        OSStatus status = SecIdentityCopyPrivateKey(identity, &privateKey);
-        NSError *theError = [JWTCryptoSecurity securityErrorWithOSStatus:status];
-        if (theError) {
-            if (error) {
-                *error = theError;
-            }
-        }
-    }
-    
-    if (identity) {
-        CFRelease(identity);
-    }
-    
-    if (privateKey != NULL) {
-        if (self = [super init]) {
+        self = [super init];
+        SecKeyRef privateKey;
+        SecIdentityCopyPrivateKey(identity, &privateKey);
+        if (self) {
             self.key = privateKey;
         }
     }
-    
+
+    if (identity) {
+        CFRelease(identity);
+    }
+
+    if (trust) {
+        CFRelease(trust);
+    }
+
+    if (!identityAndTrust) {
+        //error: no identity and trust.
+        return nil;
+    }
+
     return self;
 }
 @end

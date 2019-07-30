@@ -7,16 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JWTRSAlgorithm.h"
-#import "JWTAlgorithmErrorDescription.h"
-
-extern NSString *const JWTAlgorithmAsymmetricFamilyErrorDomain;
-typedef NS_ENUM(NSInteger, JWTAlgorithmAsymmetricFamilyError) {
-    JWTAlgorithmAsymmetricFamilyErrorInternalSecurityAPI = -98,
-    JWTAlgorithmAsymmetricFamilyErrorAlgorithmIsNotSupported = -50,
-    JWTAlgorithmAsymmetricFamilyErrorUnexpected = -20
-};
-
-@interface JWTAlgorithmAsymmetricFamilyErrorDescription : JWTAlgorithmErrorDescription @end
 
 @interface JWTAlgorithmAsymmetricBase : NSObject @end
 

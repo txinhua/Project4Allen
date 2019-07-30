@@ -10,7 +10,6 @@
 #import <Security/Security.h>
 
 @protocol JWTCryptoKeyProtocol;
-@class JWTCryptoKeyBuilder;
 @protocol JWTCryptoKeyExtractorProtocol <NSObject>
 @optional
 - (id<JWTCryptoKeyProtocol>)keyFromString:(NSString *)string parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing*)error;
@@ -21,11 +20,6 @@
 @property (copy, nonatomic, readonly) NSString *type;
 + (NSString *)type;
 + (NSString *)parametersKeyCertificatePassphrase;
-
-#pragma mark - Fluent
-@property (strong, nonatomic, readonly) JWTCryptoKeyBuilder *internalKeyBuilder;
-- (instancetype)configuredByKeyBuilder:(JWTCryptoKeyBuilder *)keyBuilder;
-@property (copy, nonatomic, readonly) JWTCryptoKeyExtractor * (^keyBuilder)(JWTCryptoKeyBuilder *keyBuilder);
 @end
 
 @interface JWTCryptoKeyExtractor (ClassCluster)
