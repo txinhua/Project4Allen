@@ -175,3 +175,12 @@ push your jsbundle to code push
 
 
 
+## codepush key
+
+### iOS
+
+![WechatIMG21](WechatIMG21.jpeg)
+
+### android
+
+![Snip20190805_4](Snip20190805_4.png)
