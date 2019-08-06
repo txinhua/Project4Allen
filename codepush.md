@@ -184,3 +184,10 @@ push your jsbundle to code push
 ### android
 
 ![Snip20190805_4](Snip20190805_4.png)
+
+### 苹果上架时的注意事项
+```To further remain in compliance with Apple's guidelines we suggest that App Store-distributed apps don't enable the updateDialog option when calling sync, since in the App Store Review Guidelines it is written that:
+
+Apps must not force users to rate the app, review the app, download other apps, or other similar actions in order to access functionality, content, or use of the app.
+
+This is not necessarily the case for updateDialog, since it won't force the user to download the new version, but at least you should be aware of that ruling if you decide to show it. ```
